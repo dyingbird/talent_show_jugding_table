@@ -28,17 +28,17 @@ for team in team_names:
 if st.button("제출"):
     payload = {
         "judge": judge,
-        "scores": scores  # { "Alpha":7, "Bravo":5, … }
+        "scores": scores
     }
     try:
-        resp = requests.post(
-            "https://script.google.com/macros/s/AKfycbz50zQyhF7Rvy4mVGZC2M7kM7htmbRuSV6gPHk6gppqmfIf0uvVhmwkCrTTduTlL5TotA/exec",  # ← 여기에 Apps Script 웹앱 URL (/exec) 입력
-            json=payload,
-            timeout=5
-        )
-        if resp.status_code == 200 and resp.json().status == "success":
-            st.success("✅ 점수가 성공적으로 전송되었습니다!")
+        resp = requests.post("<<YOUR_SCRIPT_WEB_APP_URL>>", json=payload, timeout=5)
+        if resp.status_code == 200:
+            result = resp.json()
+            if result.get("status") == "success":
+                st.success("✅ 점수가 성공적으로 전송되었습니다!")
+            else:
+                st.error(f"❌ 전송 실패: {result.get('message', resp.text)}")
         else:
-            st.error(f"❌ 전송 실패: {resp.text}")
+            st.error(f"❌ HTTP 오류: 상태 코드 {resp.status_code}")
     except Exception as e:
         st.error(f"⚠️ 오류 발생: {e}")
