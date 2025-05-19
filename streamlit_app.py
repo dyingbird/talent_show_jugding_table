@@ -1,16 +1,17 @@
 import streamlit as st
 import requests
 
-st.title("📝 팀 심사 점수 입력")
+st.title("📝 장기자랑 심사 점수 입력")
 
-# • 심사위원 이름과 팀명 리스트를 원하는 대로 수정하세요.
+# ▶ 심사위원 10명 리스트로 조정!
 judge_names = [
-    "홍길동", "김철수", "이영희", "박민수", "이수진",
-    "최준호", "정다은", "오승현", "강다희", "유지훈", "신예린"
+    "김기철", "변재은", "이은", "강민영", 
+    "상희원", "임은지", "임철환", "김채울",
+    "우현주", "함보현"
 ]
 team_names = [
-    "Alpha", "Bravo", "Charlie", "Delta",
-    "Echo", "Foxtrot", "Golf", "Hotel"
+    "1. 깍두기 카라멜", "2. 등산하러갈래", "3. 패트와 매트", "4. 충치",
+    "5. 82 party", "6. 구름이", "7. 유트와 예트", "8. 딜라이트"
 ]
 
 # 1) 심사위원 선택
@@ -31,7 +32,7 @@ if st.button("제출"):
     }
     try:
         resp = requests.post(
-            "<<YOUR_SCRIPT_WEB_APP_URL>>",
+            "<<YOUR_SCRIPT_WEB_APP_URL>>",  # ← 여기에 Apps Script 웹앱 URL (/exec) 입력
             json=payload,
             timeout=5
         )
