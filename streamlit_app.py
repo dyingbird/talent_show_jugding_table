@@ -34,14 +34,18 @@ for team in team_names:
     label = f"- {team} ({team_info[team]}) 점수"
     scores[team] = st.selectbox(label, options=list(range(1, 11)), index=4)
 
-# 3) 제출
+# 3) 제출 버튼
 if st.button("제출"):
     payload = {
         "judge": judge,
         "scores": scores
     }
     try:
-        resp = requests.post("https://script.google.com/macros/s/AKfycbz50zQyhF7Rvy4mVGZC2M7kM7htmbRuSV6gPHk6gppqmfIf0uvVhmwkCrTTduTlL5TotA/exec", json=payload, timeout=5)
+        resp = requests.post(
+            "https://script.google.com/macros/s/AKfycbz50zQyhF7Rvy4mVGZC2M7kM7htmbRuSV6gPHk6gppqmfIf0uvVhmwkCrTTduTlL5TotA/exec",
+            json=payload,
+            timeout=5
+        )
         if resp.status_code == 200:
             result = resp.json()
             if result.get("status") == "success":
