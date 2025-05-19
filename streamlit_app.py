@@ -31,7 +31,7 @@ if st.button("제출"):
         "scores": scores
     }
     try:
-        resp = requests.post("<<YOUR_SCRIPT_WEB_APP_URL>>", json=payload, timeout=5)
+        resp = requests.post("https://script.google.com/macros/s/AKfycbz50zQyhF7Rvy4mVGZC2M7kM7htmbRuSV6gPHk6gppqmfIf0uvVhmwkCrTTduTlL5TotA/exec", json=payload, timeout=5)
         if resp.status_code == 200:
             result = resp.json()
             if result.get("status") == "success":
