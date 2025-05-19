@@ -1,29 +1,30 @@
 import streamlit as st
 import requests
 
-st.title("팀별 심사 점수 입력")
+st.title("팀 심사 점수 입력")
 
-teams = [f"팀{i}" for i in range(1, 9)]  # 팀1 ~ 팀8
-with st.form("score_form"):
-    selected_team = st.selectbox("점수를 입력할 팀을 선택하세요", teams)
-    # 1번~11번 심사위원의 점수를 각각 입력받기 위한 드롭다운
-    scores = {}
-    for judge in range(1, 12):
-        scores[judge] = st.selectbox(f"심사위원 {judge}의 점수:", list(range(1, 11)), index=0)
-    submit_button = st.form_submit_button("제출")
+# 1) 심사위원 번호 선택
+judge_number = st.selectbox("심사위원 번호를 선택하세요", list(range(1,12)))
 
-if submit_button:
-    # 전송할 데이터 구성 (팀명과 11명의 점수 목록)
-    data = {
-        "team": selected_team,
-        "scores": [scores[j] for j in range(1, 12)]
+st.write(f"심사위원 {judge_number}님, 점수를 입력해주세요.")
+
+teams = [f"팀{i}" for i in range(1,9)]
+scores = {}
+
+# 2) 각 팀별 드롭다운으로 1~10점 입력
+for team in teams:
+    scores[team] = st.selectbox(f"{team} 점수", options=list(range(1,11)), index=4)
+
+if st.button("제출"):
+    payload = {
+        "judge": judge_number,
+        "scores": [scores[t] for t in teams]  # [팀1 점수, 팀2 점수, …, 팀8 점수]
     }
     try:
-        # Apps Script 웹앱 엔드포인트로 POST 요청 전송 (JSON 형식)
-        response = requests.post("<<YOUR_SCRIPT_WEB_APP_URL>>", json=data)
-        if response.status_code == 200:
-            st.success(f"{selected_team}의 점수가 성공적으로 전송되었습니다!")
+        resp = requests.post("<<YOUR_SCRIPT_WEB_APP_URL>>", json=payload)
+        if resp.status_code == 200:
+            st.success("점수가 성공적으로 전송되었습니다! 🎉")
         else:
-            st.error(f"점수 전송 실패 (상태 코드: {response.status_code})")
-    except Exception as e:
-        st.error(f"오류 발생: {e}")
+            st.error(f"전송 실패: 상태 코드 {resp.status_code}")
+    except Exception as err:
+        st.error(f"오류 발생: {err}")
