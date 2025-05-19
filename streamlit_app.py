@@ -26,7 +26,7 @@ team_names = list(team_info.keys())
 
 # 1) 심사위원 선택
 judge = st.selectbox("당신의 이름을 선택하세요", judge_names)
-st.markdown(f"### {judge}님, 팀별 점수를 입력해 주세요")
+st.markdown(f"### {judge} 선생님, 팀별 점수를 입력해 주세요")
 
 # 2) 각 팀별 점수 입력 (라벨에 팀 소개 포함)
 scores = {}
