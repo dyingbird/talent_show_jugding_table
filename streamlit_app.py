@@ -32,7 +32,7 @@ if st.button("제출"):
     }
     try:
         resp = requests.post(
-            "<<YOUR_SCRIPT_WEB_APP_URL>>",  # ← 여기에 Apps Script 웹앱 URL (/exec) 입력
+            "AKfycbz50zQyhF7Rvy4mVGZC2M7kM7htmbRuSV6gPHk6gppqmfIf0uvVhmwkCrTTduTlL5TotA",  # ← 여기에 Apps Script 웹앱 URL (/exec) 입력
             json=payload,
             timeout=5
         )
