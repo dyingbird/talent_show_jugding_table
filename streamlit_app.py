@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 
-st.title("팀 심사 점수 입력")
+st.title("장기 자랑 점수 입력")
 
 # 1) 심사위원 번호 선택
 judge_number = st.selectbox("심사위원 번호를 선택하세요", list(range(1,12)))
